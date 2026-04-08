@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Regression Suite">
+    
+    <listeners>
+        <listener class-name="listeners.ExtentReportListener"/>
+    </listeners>
+
+    <test name="Mobile Tests - Android">
+        <parameter name="platform" value="android"/>
+        <classes>
+            <class name="tests.LoginTest" />
+            <!-- <class name="tests.SignupTest" /> -->
+            <!--<class name="tests.TransferMoneyTest" />-->
+            <class name="tests.FxBookingTest"/>
+        </classes>
+    </test>
+    
+</suite>
