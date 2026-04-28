@@ -72,29 +72,29 @@ mvn test -Denv=qa -Dplatform=android
 ### 2. VS Code
 - **Prerequisites:** Install [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack).
 - **Steps:**
-    1. Open the **Testing** tab (beaker symbol).
-    2. Click **Run** next to a specific test case or class.
-    3. View real-time results in the **Test Report** window.
+  1. Open the **Testing** tab (beaker symbol).
+  2. Click **Run** next to a specific test case or class.
+  3. View real-time results in the **Test Report** window.
 
 ### 3. Antigravity (AI Workspace)
 Antigravity can manage test execution autonomously:
 - **Steps:**
-    1. Command: `Run all tests` or `Run TransferMoneyTest`.
-    2. Antigravity will check your environment, start Appium if needed, and execute the tests.
+  1. Command: `Run all tests` or `Run TransferMoneyTest`.
+  2. Antigravity will check your environment, start Appium if needed, and execute the tests.
 
 ### 4. IntelliJ IDEA
 - **Steps:**
-    1. Open the project as Maven.
-    2. Locate `src/test/resources/testng.xml`.
-    3. Right-click and select **Run 'testng.xml'**.
-    4. To run individual tests, right-click any `@Test` method and select **Run**.
+  1. Open the project as Maven.
+  2. Locate `src/test/resources/testng.xml`.
+  3. Right-click and select **Run 'testng.xml'**.
+  4. To run individual tests, right-click any `@Test` method and select **Run**.
 
 ### 5. Android Studio
 Since this is a Maven project:
 - **Steps:**
-    1. Open the **Terminal** at the bottom.
-    2. Use the Maven CLI command: `mvn test -Denv=qa -Dplatform=android`.
-    3. Alternatively, use the **Maven Tool Window** (View > Tool Windows > Maven) to trigger the `test` lifecycle phase.
+  1. Open the **Terminal** at the bottom.
+  2. Use the Maven CLI command: `mvn test -Denv=qa -Dplatform=android`.
+  3. Alternatively, use the **Maven Tool Window** (View > Tool Windows > Maven) to trigger the `test` lifecycle phase.
 
 ## Reporting & Logs
 - **Extent Reports:** Generated after every run in the `/reports` directory.

@@ -22,6 +22,7 @@ public abstract class BasePage {
 
     protected AppiumDriver driver;
     protected WebDriverWait wait;
+
     protected String APP_PACKAGE = "com.almuzaini.almuzaini";
 
     protected BasePage() {

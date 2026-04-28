@@ -9,10 +9,17 @@
     <test name="Mobile Tests - Android">
         <parameter name="platform" value="android"/>
         <classes>
+
+            <!-- Login Module -->
             <class name="tests.LoginTest" />
+            <!-- Signup Module -->
             <!-- <class name="tests.SignupTest" /> -->
+            <!-- Transfer Money Module -->
             <!--<class name="tests.TransferMoneyTest" />-->
-            <class name="tests.FxBookingTest"/>
+            <!-- Fx Booking Module -->
+            <!-- <class name="tests.FxBookingTest"/>-->
+            <!-- Bill Pay Module -->
+            <class name="tests.BillPayTest"/>
         </classes>
     </test>
     

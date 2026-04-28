@@ -5,6 +5,8 @@ import io.appium.java_client.AppiumBy; // Import for Appium specific locators
 import org.openqa.selenium.By; // Import for Selenium locator strategies
 import org.openqa.selenium.Keys; // Import for keyboard actions
 
+import pages.TransferMoney.Beneficiaries.BankTransfer.KnetPaymentGateway;
+
 // Page class for FX Booking screen extending BasePage
 public class FxbookingPage extends BasePage {
 
@@ -57,6 +59,25 @@ public class FxbookingPage extends BasePage {
     // Locator for Add Currency button
     private final By AddCurrency = new AppiumBy.ByAccessibilityId("Add Currency");
 
+    private final By DeliveryInstruction = By.xpath("//android.view.ViewGroup[@content-desc=\"Delivery Instructions\"]/android.view.ViewGroup/android.view.ViewGroup[2]");
+
+    private final By ClickingDeliveryInstructionBottonSheet = By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]");
+
+    private final By ClickingCloseIconInDelevieryInstructionsBottomsheet = By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]");
+
+    private final By TransferSummaryTermsAndConditions = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"Terms & Conditions\")");
+
+    private final By ClickingCloseIconInTermsAndConditionsModal = By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup");
+
+    private final By ClickingOkButtonInTermsAndConditionsModal = new AppiumBy.ByAccessibilityId("OK");
+
+    private final By ClickingCheckBoxInTermsAndConditions = By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.Button");
+
+    private final By ClickingBackButton = new AppiumBy.ByAccessibilityId("Back");
+
+    private final By ClickingThePayButton = new AppiumBy.ByAccessibilityId("Pay");
+
+
 
     // Main method to perform all actions in FX Booking page
     public void FXBookingPageCommonActions(String Amount) throws InterruptedException {
@@ -65,7 +86,7 @@ public class FxbookingPage extends BasePage {
         SelectCurrencyDropDown(); // Open currency dropdown
         SelectingCurrencyInDropDown(); // Select a currency
         EnteringAmount(Amount); // Enter amount value
-//        ClickingAddCurrencyButton(); // Click add currency button
+//      ClickingAddCurrencyButton(); // Click add currency button
         CloseIconInReviewOrder(); // Click Close icon
         PurposeOfTransfer(); // Select purpose of transfer
         PrefferedDate(); // Select preferred date
@@ -73,6 +94,10 @@ public class FxbookingPage extends BasePage {
         ClickingTheProceedButton(); // Click proceed button
         ClickingAddCurrencyButton(); // Click add currency button
         ClickingTheProceedButton(); // Click proceed button
+        TransferSummaryActions(); // Transfer Summary Page Actions
+
+        KentPage();
+        TransactionReceipt();
     }
 
     // Method to handle guide tour popup by clicking multiple times
@@ -213,5 +238,92 @@ public class FxbookingPage extends BasePage {
     // Click Proceed button
     protected void ClickingTheProceedButton(){
         clickWithWait(ProceedButton);
+        System.out.println("Successfully clicked the Proceed button");
     }
+
+    protected void TransferSummaryActions(){
+        ClickingBackButton(); // Back Button
+        ClickingTheProceedButton();
+//        DelevieryInstructionActions(); //Delivery Instruction Screen Actions
+        TermsAndConditionsActions(); //Terms & Conditions Actions
+    }
+
+    protected void DelevieryInstructionActions(){
+        DeliveryInstructions();
+        clickingCloseIconInDeliveryInstructionsBottomSheet();
+        DeliveryInstructions();
+        ClickingDeleveryInstructionBottomSheetValue();
+    }
+
+    protected void DeliveryInstructions(){
+        clickWithWait(DeliveryInstruction);
+        System.out.println("Successfully clicked the Delivery Instructions");
+    }
+
+    protected void ClickingDeleveryInstructionBottomSheetValue(){
+        clickWithWait(ClickingDeliveryInstructionBottonSheet);
+        System.out.println("Successfully clicked the Delivery Instruction BottomSheet Value");
+    }
+
+    protected void clickingCloseIconInDeliveryInstructionsBottomSheet(){
+        clickWithWait(ClickingCloseIconInDelevieryInstructionsBottomsheet);
+        System.out.println("Successfully clicked the Close Icon In Delivery Instructions BottomSheet");
+    }
+
+    protected void TermsAndConditionsActions(){
+        TermsAndConditionsTransferSummary();
+        ClickingCloseIconInTermsAndConditionsModal();
+        TermsAndConditionsTransferSummary();
+        ClickingOkButtonInTermsAndConditionsModal();
+        ClickingTermsAndConditionCheckBox();
+        ClickingPayButton();
+    }
+
+    protected void TermsAndConditionsTransferSummary(){
+        clickWithWait(TransferSummaryTermsAndConditions);
+        System.out.println("Successfully clicked the TermsAndConditions");
+    }
+
+    protected void ClickingCloseIconInTermsAndConditionsModal(){
+        clickWithWait(ClickingCloseIconInTermsAndConditionsModal);
+        System.out.println("Successfully clicked the Close Icon In Terms And Conditions Modal ");
+    }
+
+    protected void ClickingOkButtonInTermsAndConditionsModal(){
+        clickWithWait(ClickingOkButtonInTermsAndConditionsModal);
+        System.out.println("Successfully clicked the Ok Button In Terms And Conditions Modal ");
+    }
+
+    protected void ClickingTermsAndConditionCheckBox() {
+        clickWithWait(ClickingCheckBoxInTermsAndConditions);
+        System.out.println("Successfully clicked Terms And Condition CheckBox");
+    }
+
+    protected void ClickingBackButton() {
+        clickWithWait(ClickingBackButton);
+        System.out.println("Successfully clicked the Back Button");
+    }
+
+    protected void ClickingPayButton(){
+        clickWithWait(ClickingThePayButton);
+        System.out.println("Successfully clicked the Pay Button");
+    }
+
+    // Calling The Knet Page Here To Do Transaction
+    protected void KentPage() throws InterruptedException {
+        Thread.sleep(5000);
+        KnetPaymentGateway knet = new KnetPaymentGateway();
+        knet.KnetActions();
+        TransactionReceipt();
+        System.out.println("Successfully Completed the Knet Payment");
+
+    }
+
+    protected void TransactionReceipt() throws InterruptedException {
+        Thread.sleep(5000);
+        Transaction_Receipt transactionReceipt = new Transaction_Receipt();
+        transactionReceipt.TransactionReceiptActions();
+        System.out.println("Successfully Completed the Transaction Receipt");
+    }
+    
 }

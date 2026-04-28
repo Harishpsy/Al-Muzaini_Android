@@ -2,66 +2,85 @@ package pages.TransferMoney.Beneficiaries.BankTransfer;
 
 import base.BasePage;
 import io.appium.java_client.AppiumBy;
-import io.appium.java_client.android.AndroidDriver;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
-
-import static base.DriverFactory.getDriver;
 
 public class KnetPaymentGateway extends BasePage {
+
+    private final By SelectYourBankName = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"Select Your Bank\")");
+    private final By ClickingTheBankNameInPopup = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"Knet Test Card [KNET1]\")");
+    private final By CardNumber = By.xpath("//android.view.View[@resource-id=\"Paymentpagecardnumber\"]/android.view.View[3]");
+    private final By EnteringCardNumber = By.xpath("//android.widget.EditText[@resource-id=\"debitNumber\"]");
+    private final By ExpireDateMonth = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"MM\")");
+    private final By ClickingTheMonthInPopup = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"09\")");
+    private final By ExpireDateYear = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"YYYY\")");
+    private final By ClickingTheYearInPopup = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"2030\")");
+    private final By Pin = By.xpath("//android.view.View[@resource-id=\"PinRow\"]/android.view.View[2]");
+    private final By EnteringPin = By.xpath("//android.widget.EditText[@resource-id=\"cardPin\"]");
+    private final By Submit = new AppiumBy.ByAndroidUIAutomator("new UiSelector().resourceId(\"proceed\")");
+    private final By Confirm = new AppiumBy.ByAndroidUIAutomator("new UiSelector().resourceId(\"proceedConfirm\")");
 
     public KnetPaymentGateway() {
         super();
     }
-    public void KnetActions() {
-        waitUntilAppReturns();
+
+    public void KnetActions() throws InterruptedException {
+        ClickingSelectYourBankAccount();
+        SelectingBankNameInTheModal();
+        ClickingCardNumberFiled();
+        ClickingTheMonthTextField();
+        SelectingTheMonthInModal();
+        ClickingTheYearTextField();
+        SelectingTheYearInModal();
+        ClickingAndEnteringCardPin();
+        ClickingSubmitButton();
+        ClickingTheConfirmButton();
     }
-    //SCANNER METHOD
-    private void waitUntilAppReturns() {
 
-        AndroidDriver driver = (AndroidDriver) getDriver();
+    protected void ClickingSelectYourBankAccount() {
+        clickWithWait(SelectYourBankName);
+    }
 
-        System.out.println("👉 Complete KNET payment manually... Waiting for app to return");
+    protected void SelectingBankNameInTheModal() {
+        clickWithWait(ClickingTheBankNameInPopup);
+    }
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMinutes(5));
+    protected void ClickingCardNumberFiled() throws InterruptedException {
+        Thread.sleep(1000);
+        clickWithWait(CardNumber);
+        Thread.sleep(2000);
+        sendKeys(EnteringCardNumber, "1000000001");
+    }
 
-        wait.until(d ->
-                driver.getCurrentPackage().equals("com.almuzaini.almuzaini")
-        );
+    protected void ClickingTheMonthTextField() {
+        clickWithWait(ExpireDateMonth);
+    }
 
-        System.out.println("Navigate Back to app. Continuing automation...");
+    protected void SelectingTheMonthInModal() {
+        clickWithWait(ClickingTheMonthInPopup);
+    }
+
+    protected void ClickingTheYearTextField() {
+        clickWithWait(ExpireDateYear);
+    }
+
+    protected void SelectingTheYearInModal() {
+        clickWithWait(ClickingTheYearInPopup);
+    }
+
+    protected void ClickingAndEnteringCardPin() {
+        clickWithWait(Pin);
+        sendKeys(EnteringPin, "0000");
+    }
+
+    protected void ClickingSubmitButton() {
+
+        clickWithWait(Submit );
+    }
+
+    protected void ClickingTheConfirmButton() {
+        clickWithWait(Confirm);
     }
 }
 
-
-//package pages.TransferMoney.Beneficiaries.BankTransfer;
-//
-//import base.BasePage;
-//
-//import java.util.Scanner;
-//
-//public class KnetPaymentGateway extends BasePage {
-//
-//    public void knetActions() {
-//        waitForUserConfirmation();
-//    }
-//
-//    // Manual scanner method
-//    private void waitForUserConfirmation() {
-//
-//        System.out.println("====================================");
-//        System.out.println("Complete KNET payment manually.");
-//        System.out.println("After clicking Continue, press ENTER to proceed...");
-//        System.out.println("====================================");
-//
-//        Scanner scanner = new Scanner(System.in);
-//        scanner.nextLine(); // waits for ENTER
-//
-//        System.out.println("✅ SOP: ENTER button triggered by user. Continuing automation flow...");
-//    }
-//
-//}
 

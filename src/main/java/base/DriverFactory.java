@@ -37,15 +37,14 @@ public class DriverFactory {
 
         if (platform.equalsIgnoreCase("android")) {
             UiAutomator2Options options = new UiAutomator2Options()
-                    .setPlatformName("Android")
+                    .setPlatformName(ConfigReader.getProperty("android.platform.name"))
                     .setDeviceName(ConfigReader.getProperty("android.device.name"))
-                    .setAutomationName("UiAutomator2")
-                    .setAppPackage("android.app.package")
-                    .setAppActivity("android.app.activity")
-                    .setAppWaitActivity("android.app.wait.activity")
+                    .setAutomationName(ConfigReader.getProperty("android.automation.name"))
+                    .setAppPackage(ConfigReader.getProperty("android.app.package"))
+                    .setAppActivity(ConfigReader.getProperty("android.app.activity"))
+                    .setAppWaitActivity(ConfigReader.getProperty("android.app.wait.activity"))
                     .setNoReset(Boolean.parseBoolean(ConfigReader.getProperty("android.no.reset")))
                     .setFullReset(Boolean.parseBoolean(ConfigReader.getProperty("android.full.reset")))
-                    // .setEnforceAppInstall(true)   // 🔥 Reinstall only if needed
                     .setNewCommandTimeout(Duration.ofSeconds(300));
             appiumDriver = new AndroidDriver(url, options);
         } else if (platform.equalsIgnoreCase("ios")) {
