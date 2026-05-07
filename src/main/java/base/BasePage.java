@@ -1,13 +1,19 @@
 package base;
 
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.HidesKeyboard;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.WaitUtils;
 
@@ -31,31 +37,71 @@ public abstract class BasePage {
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
-    /* ===================== CLICK ===================== */
-
-    protected void click(WebElement element, String elementName) {
-        WaitUtils.waitForElementToBeClickable(element);
-        element.click();
-        System.out.println("Clicked on: " + elementName);
+    //Set implicit wait (applies globally for element finding)
+    protected void implicitwait(){
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     }
+
+    /* ================= CLEAR ===================*/
+    protected void clear(By locator) {
+        driver.findElement(locator).clear();
+    }
+
+    /* ===================== CLICK ===================== */
 
     protected void click(By locator) {
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+        System.out.println("Clicked on: " +  locator);
     }
 
+//    protected void clickWithWait(By locator) {
+//        FluentWait<AppiumDriver> wait = new FluentWait<>(driver)
+//                .withTimeout(Duration.ofSeconds(20))
+//                .pollingEvery(Duration.ofMillis(500))
+//                .ignoring(StaleElementReferenceException.class);
+//
+//        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+//    }
+
     protected void clickWithWait(By locator) {
+
         int attempts = 0;
+
         while (attempts < 3) {
+
             try {
+
+                FluentWait<AppiumDriver> wait = new FluentWait<>(driver)
+                        .withTimeout(Duration.ofSeconds(20))
+                        .pollingEvery(Duration.ofMillis(500))
+                        .ignoring(StaleElementReferenceException.class);
+
                 wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
-                return;
-            } catch (StaleElementReferenceException e) {
-                System.out.println("Stale element encountered for locator: " + locator + ". Retrying... Attempts: " + (attempts + 1));
+
+                System.out.println("Clicked on: " + locator);
+
+                return; // Exit if click succeeds
+
+            } catch (Exception e) {
+
+                attempts++;
+
+                System.out.println("Retrying click for locator: "
+                        + locator
+                        + " | Attempt: "
+                        + attempts);
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ignored) {
+                }
             }
-            attempts++;
         }
-        // Final attempt
-        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+
+        // Final failure after retries
+        throw new RuntimeException(
+                "Failed to click element after 3 attempts: " + locator
+        );
     }
 
     /* ===================== SEND KEYS ===================== */
@@ -92,8 +138,13 @@ public abstract class BasePage {
         }
     }
 
-/*   Navigate Back To Application */
+    protected void NavigateBack() throws InterruptedException {
+        Thread.sleep(15000);
+        driver.navigate().back();
+        System.out.println("Navigated to back Successfully");
+    }
 
+/*   Navigate Back To Application */
     protected void NavigateBackToApp() {
 
         AndroidDriver driver = (AndroidDriver) getDriver();
@@ -105,11 +156,20 @@ public abstract class BasePage {
         driver.activateApp(APP_PACKAGE);
     }
 
-    protected void scrollToTop(){
-        driver.executeScript("mobile: scroll", Map.of("direction", "up"));
+    protected void scrollToEnd() {
+        driver.findElement(AppiumBy.androidUIAutomator(
+                "new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(5)"
+        ));
+        System.out.println("Successfully Scroll Down");
     }
 
-    protected void scrollToEnd() {
-        driver.executeScript("mobile: scroll", Map.of("direction", "down"));
+    protected void scrollToTop() {
+        driver.findElement(AppiumBy.androidUIAutomator(
+                "new UiScrollable(new UiSelector().scrollable(true)).scrollToBeginning(5)"
+        ));
+    }
+
+    protected void KeyboardOkButton(){
+        ((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.ENTER));
     }
 }

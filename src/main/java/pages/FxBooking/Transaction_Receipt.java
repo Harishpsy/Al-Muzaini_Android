@@ -19,7 +19,7 @@ public class Transaction_Receipt extends BasePage {
 
     public void TransactionReceiptActions(){
 //        ClickingShare();
-        ClickingDownloadIcon();
+//        ClickingDownloadIcon();
         ClickingBackToHome();
     }
 

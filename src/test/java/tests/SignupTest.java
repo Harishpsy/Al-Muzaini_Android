@@ -10,7 +10,7 @@ public class SignupTest extends BaseTest {
         
     }
 
-    @org.testng.annotations.Test(priority = 2, dataProvider = "Signup", dataProviderClass = utils.DataProviders.class)
+    @org.testng.annotations.Test(priority = 1, dataProvider = "Signup", dataProviderClass = utils.DataProviders.class)
     public void executeSignupTest(
             String idNumber, String mobileNumber,
             String otp1, String otp2, String otp3, String otp4,

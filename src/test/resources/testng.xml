@@ -15,12 +15,14 @@
             <!-- Signup Module -->
             <!-- <class name="tests.SignupTest" /> -->
             <!-- Transfer Money Module -->
-            <!--<class name="tests.TransferMoneyTest" />-->
+            <!-- <class name="tests.TransferMoneyTest" />-->
             <!-- Fx Booking Module -->
-            <!-- <class name="tests.FxBookingTest"/>-->
+             <class name="tests.FxBookingTest"/>
             <!-- Bill Pay Module -->
             <class name="tests.BillPayTest"/>
+            <!-- Rate Calculator Module  -->
+            <class name="tests.RateCalculatorTest"/>
         </classes>
     </test>
-    
+
 </suite>

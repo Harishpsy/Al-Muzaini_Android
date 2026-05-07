@@ -47,6 +47,13 @@ public class DriverFactory {
                     .setFullReset(Boolean.parseBoolean(ConfigReader.getProperty("android.full.reset")))
                     .setNewCommandTimeout(Duration.ofSeconds(300));
             appiumDriver = new AndroidDriver(url, options);
+
+            appiumDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+            ((AndroidDriver) appiumDriver).setSetting("waitForIdleTimeout", 100);
+            ((AndroidDriver) appiumDriver).setSetting("actionAcknowledgmentTimeout", 3000);
+
+            driver.set(appiumDriver);
         } else if (platform.equalsIgnoreCase("ios")) {
             XCUITestOptions options = new XCUITestOptions()
                     .setDeviceName(ConfigReader.getProperty("ios.device.name"))

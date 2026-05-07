@@ -4,17 +4,21 @@ import base.BasePage;
 import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
 
+import java.time.Duration;
+
 public class BillPayTap extends BasePage {
 
     private final By ClickingBillPay = new AppiumBy.ByAccessibilityId("Bill Pay");
     private final By ClickingGuideTour = By.className("android.view.View");
 
-    public void BillPayActions(){
-           BillPayTapping();
+    public void BillPayActions() throws InterruptedException {
+        BillPayTapping();
         BillPayGuideTour();
     }
 
-    protected void BillPayTapping(){
+    protected void BillPayTapping() throws InterruptedException {
+//        Thread.sleep(3000);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
          clickWithWait(ClickingBillPay);
 
     }
@@ -30,7 +34,4 @@ public class BillPayTap extends BasePage {
             }
         }
     }
-
-
-
 }

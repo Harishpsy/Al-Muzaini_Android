@@ -84,6 +84,8 @@ public class FxbookingPage extends BasePage {
 
         GuideTour(); // Handle guide tour popup
         SelectCurrencyDropDown(); // Open currency dropdown
+        scrollToEnd();
+        scrollToTop();
         SelectingCurrencyInDropDown(); // Select a currency
         EnteringAmount(Amount); // Enter amount value
 //      ClickingAddCurrencyButton(); // Click add currency button
