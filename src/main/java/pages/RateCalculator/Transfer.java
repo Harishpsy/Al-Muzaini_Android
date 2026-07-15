@@ -17,8 +17,8 @@ public class Transfer extends BasePage {
         ClickingFcCurrency();
         ClickingLCTextField();
         ClickingTheCurrency();
-        CloseIcon();
-        ClickingTheCurrency();
+//        CloseIcon();
+//        ClickingTheCurrency();
         ClickingSeacrhField();
         KeyboardOkButton();
         scrollToEnd();

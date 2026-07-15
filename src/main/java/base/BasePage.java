@@ -30,6 +30,8 @@ public abstract class BasePage {
     protected WebDriverWait wait;
 
     protected String APP_PACKAGE = "com.almuzaini.almuzaini";
+    // Locator for guide tour overlay clicks
+    private final By ClickingGuideTour = By.className("android.view.View");
 
     protected BasePage() {
         this.driver = getDriver();
@@ -54,55 +56,55 @@ public abstract class BasePage {
         System.out.println("Clicked on: " +  locator);
     }
 
-//    protected void clickWithWait(By locator) {
-//        FluentWait<AppiumDriver> wait = new FluentWait<>(driver)
-//                .withTimeout(Duration.ofSeconds(20))
-//                .pollingEvery(Duration.ofMillis(500))
-//                .ignoring(StaleElementReferenceException.class);
-//
-//        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
-//    }
-
     protected void clickWithWait(By locator) {
+        FluentWait<AppiumDriver> wait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(20))
+                .pollingEvery(Duration.ofMillis(500))
+                .ignoring(StaleElementReferenceException.class);
 
-        int attempts = 0;
-
-        while (attempts < 3) {
-
-            try {
-
-                FluentWait<AppiumDriver> wait = new FluentWait<>(driver)
-                        .withTimeout(Duration.ofSeconds(20))
-                        .pollingEvery(Duration.ofMillis(500))
-                        .ignoring(StaleElementReferenceException.class);
-
-                wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
-
-                System.out.println("Clicked on: " + locator);
-
-                return; // Exit if click succeeds
-
-            } catch (Exception e) {
-
-                attempts++;
-
-                System.out.println("Retrying click for locator: "
-                        + locator
-                        + " | Attempt: "
-                        + attempts);
-
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ignored) {
-                }
-            }
-        }
-
-        // Final failure after retries
-        throw new RuntimeException(
-                "Failed to click element after 3 attempts: " + locator
-        );
+        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
+
+//    protected void clickWithWait(By locator) {
+//
+//        int attempts = 0;
+//
+//        while (attempts < 3) {
+//
+//            try {
+//
+//                FluentWait<AppiumDriver> wait = new FluentWait<>(driver)
+//                        .withTimeout(Duration.ofSeconds(20))
+//                        .pollingEvery(Duration.ofMillis(500))
+//                        .ignoring(StaleElementReferenceException.class);
+//
+//                wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+//
+//                System.out.println("Clicked on: " + locator);
+//
+//                return; // Exit if click succeeds
+//
+//            } catch (Exception e) {
+//
+//                attempts++;
+//
+//                System.out.println("Retrying click for locator: "
+//                        + locator
+//                        + " | Attempt: "
+//                        + attempts);
+//
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException ignored) {
+//                }
+//            }
+//        }
+//
+//        // Final failure after retries
+//        throw new RuntimeException(
+//                "Failed to click element after 3 attempts: " + locator
+//        );
+//    }
 
     /* ===================== SEND KEYS ===================== */
 
@@ -172,4 +174,18 @@ public abstract class BasePage {
     protected void KeyboardOkButton(){
         ((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.ENTER));
     }
+
+    // Method to handle guide tour popup by clicking multiple times
+    protected void GuideTour() {
+        for(int i = 0; i < 6; i++) { // Loop for max 6 steps
+            try {
+                clickWithWait(ClickingGuideTour); // Click guide tour overlay
+            } catch (Exception e) { // Break if no more steps
+                System.out.println("Guide Tour stopped at step " + (i + 1));
+                break;
+            }
+        }
+    }
+
+
 }

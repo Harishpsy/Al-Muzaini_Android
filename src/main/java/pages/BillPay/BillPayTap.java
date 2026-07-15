@@ -9,7 +9,7 @@ import java.time.Duration;
 public class BillPayTap extends BasePage {
 
     private final By ClickingBillPay = new AppiumBy.ByAccessibilityId("Bill Pay");
-    private final By ClickingGuideTour = By.className("android.view.View");
+    private final By ClickingGuideTour = By.xpath("//android.view.View");
 
     public void BillPayActions() throws InterruptedException {
         BillPayTapping();
@@ -17,14 +17,14 @@ public class BillPayTap extends BasePage {
     }
 
     protected void BillPayTapping() throws InterruptedException {
-//        Thread.sleep(3000);
+        Thread.sleep(3000);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
          clickWithWait(ClickingBillPay);
-
     }
 
     // Method to handle guide tour popup by clicking multiple times
     protected void BillPayGuideTour() {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
         for(int i = 0; i < 6; i++) { // Loop for max 6 steps
             try {
                 clickWithWait(ClickingGuideTour); // Click guide tour overlay

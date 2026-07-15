@@ -2,6 +2,7 @@ package pages.FxBooking; // Package declaration for FX Booking related page obje
 
 import base.BasePage; // Importing BasePage class for common reusable methods
 import io.appium.java_client.AppiumBy; // Import for Appium specific locators
+import lombok.SneakyThrows;
 import org.openqa.selenium.By; // Import for Selenium locator strategies
 import org.openqa.selenium.Keys; // Import for keyboard actions
 
@@ -11,7 +12,7 @@ import pages.TransferMoney.Beneficiaries.BankTransfer.KnetPaymentGateway;
 public class FxbookingPage extends BasePage {
 
     // Locator for selecting currency dropdown
-   private final By SelectCurrencyTapping = By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]");
+   private final By SelectCurrencyTapping = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"Select Currency\")");
 
     // Locator for search input field
     private final By clickingSearch = By.className("android.widget.EditText");
@@ -20,7 +21,7 @@ public class FxbookingPage extends BasePage {
     private final By selectingCurrency = new AppiumBy.ByAndroidUIAutomator("new UiSelector().className(\"android.view.ViewGroup\").instance(18)");
 
     // Locator for entering amount field
-    private final By EnteringAmount = By.xpath("//android.widget.EditText[@text=\"0.00\"]");
+    private final By EnteringAmount = By.xpath("(//android.widget.EditText[contains(@text, \"\")])[2]");
 
     // Locator For close icon
     private final By CloseIconInReviewOrder = new AppiumBy.ByAndroidUIAutomator("new UiSelector().className(\"android.widget.Button\")");
@@ -135,7 +136,9 @@ public class FxbookingPage extends BasePage {
     }
 
     // Method to enter amount
+    @SneakyThrows
     protected void EnteringAmount(String Amount) {
+        Thread.sleep(2000);
         clickWithWait(EnteringAmount); // Click amount field
         sendKeys(EnteringAmount, Amount); // Enter amount value
         System.out.println("SuccessFully Clicked and Entered The Amount");

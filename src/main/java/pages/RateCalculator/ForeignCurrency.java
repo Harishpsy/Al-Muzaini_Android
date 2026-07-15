@@ -15,7 +15,7 @@ public class ForeignCurrency extends BasePage {
     private final By LCAmount = By.xpath("(//android.widget.EditText[contains(@text, \"\")])[2]");
     private final By SelectingCurrency = By.xpath("//android.view.ViewGroup[@content-desc=\"BHD - BAHRAINI DINAR\"]");
     private final By ChangeCurrency = By.xpath("(//android.view.ViewGroup[contains(@content-desc, \",\")])[1]");
-    private final By ClickingClose = By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup");
+    private final By ClickingClose = new AppiumBy.ByAndroidUIAutomator("new UiSelector().className(\"android.view.ViewGroup\").instance(12)");
     private final By ClickingSearchField = By.xpath("//android.widget.EditText[contains(@text, \"\")]");
     private final By BankTransfer = new AppiumBy.ByAccessibilityId("Bank Transfer");
     private final By ConfirmationPopup = By.xpath("//android.widget.TextView[@text=\"Confirmation\"]");
@@ -38,9 +38,11 @@ public class ForeignCurrency extends BasePage {
         scrollToTop();
         ClickingBharain();
         ClickingBankTransfer();
+        GuideTour();
         Thread.sleep(5000);
         NavigateBack();
         TappingForeignCurrencyTab();
+        GuideTour();
         ClickingFcCurrency();
         KeyboardOkButton();
         Thread.sleep(5000);

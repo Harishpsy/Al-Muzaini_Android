@@ -19,7 +19,7 @@ public class PayLocalBillsEnet extends BasePage {
     private final By EnterAmount = By.xpath("//android.widget.EditText[@text=\"Enter Amount\"]");
     private final By checkbox = By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]"); // better locator if possible
     private final By proceedButton = new AppiumBy.ByAccessibilityId("Proceed");
-
+    private final By ClickingGuideTour = By.xpath("//android.view.View");
     // Main Flow
     public void eNetActions() throws InterruptedException {
         verifyEnetModuleDisplaying();
@@ -50,6 +50,19 @@ public class PayLocalBillsEnet extends BasePage {
         } catch (Exception e) {
             System.out.println("Failed To Run Enet Module error: " + e.getMessage());
             throw e;
+        }
+    }
+
+
+    // Method to handle guide tour popup by clicking multiple times
+    protected void BillPayGuideTour() {
+        for(int i = 0; i < 6; i++) { // Loop for max 6 steps
+            try {
+                clickWithWait(ClickingGuideTour); // Click guide tour overlay
+            } catch (Exception e) { // Break if no more steps
+                System.out.println("Guide Tour stopped at step " + (i + 1));
+                break;
+            }
         }
     }
 

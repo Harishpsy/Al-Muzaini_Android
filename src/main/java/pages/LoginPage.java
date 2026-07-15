@@ -4,10 +4,12 @@ import base.BasePage;
 
 import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import java.util.List;
 
 public class LoginPage extends BasePage {
 
@@ -21,6 +23,9 @@ public class LoginPage extends BasePage {
     private final By passwordField = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"Password\")");
     private final By passwordFieldExistingUser = By.className("android.widget.EditText");
     private final By loginButton = By.xpath("//android.view.ViewGroup[@content-desc=\"Login\"]");
+    private final By GoogleNoThanks = By.id("android:id/autofill_dialog_no");
+    private final By GoogleDialog = By.xpath("//android.widget.LinearLayout[@resource-id=\"android:id/autofill_dialog_picker\"]");
+
 
     public void login(String username, String password) throws InterruptedException {
 //        // Adding a small delay to ensure app is loaded
@@ -89,6 +94,7 @@ public class LoginPage extends BasePage {
             try {
                 // Try regular password field first
                 clickWithWait(passwordField);
+                GoogleDialog();
                 sendKeys(passwordField,password);
                 System.out.println("Password entered for new user");
             } catch (Exception e) {
@@ -96,6 +102,7 @@ public class LoginPage extends BasePage {
 
                 // Try existing user password field
                 clickWithWait(passwordFieldExistingUser);
+                GoogleDialog();
                 sendKeys(passwordFieldExistingUser, password);
                 System.out.println("Password entered for existing user");
             }
@@ -115,5 +122,29 @@ public class LoginPage extends BasePage {
         // For now, we'll just log that verification is requested
         System.out.println("Verification of login success requested.");
         // Example: wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dashboard_view")));
+    }
+
+    protected void GoogleNoThanksButton(){
+        click(GoogleNoThanks);
+    }
+
+    protected void GoogleDialog() {
+
+        try {
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+            WebElement dialog = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(GoogleDialog));
+
+            if (dialog.isDisplayed()) {
+
+                GoogleNoThanksButton();
+            }
+
+        } catch (TimeoutException e) {
+
+            System.out.println("Google Password Dialog was not found");
+        }
     }
 }
