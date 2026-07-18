@@ -2,6 +2,7 @@ package pages;
 
 import base.BasePage;
 
+import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,11 +18,7 @@ public class DashboardPage extends BasePage {
 
     // ===================== Locators =====================
 
-    private final By EnableBiometric = By.xpath(
-            "//android.widget.TextView[@text=\"Enable Biometric\"]" +
-            "/ancestor::android.view.ViewGroup" +
-            "//android.widget.Button[@content-desc=\"Enable\"]"
-    );
+    private final By EnableBiometric = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"Enable\")");
 
     // Locator for guide tour overlay clicks
     private final By ClickingGuideTour = By.className("android.view.View");
@@ -48,12 +45,7 @@ public class DashboardPage extends BasePage {
     public void handleBiometricPopup() {
         try {
             System.out.println("Dashboard: Checking for Enable Biometric popup...");
-
-            // WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            // WebElement enableButton = shortWait.until(
-            //         ExpectedConditions.elementToBeClickable(EnableBiometric)
-            // );
-            // enableButton.click();
+            Thread.sleep(5000); // Optional: wait for the popup to stabilize
             clickWithWait(EnableBiometric);
             System.out.println("Dashboard: Enable Biometric button clicked successfully");
 

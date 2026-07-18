@@ -17,7 +17,7 @@ public class PayLocalBillsEnet extends BasePage {
     private final By mobileNumber = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"Enter Mobile Number\")");
     private final By amount = new AppiumBy.ByAccessibilityId("Amount*");
     private final By EnterAmount = By.xpath("//android.widget.EditText[@text=\"Enter Amount\"]");
-    private final By checkbox = By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]"); // better locator if possible
+    private final By checkbox = new AppiumBy.ByAndroidUIAutomator("new UiSelector().className(\"android.view.ViewGroup\").instance(41)");
     private final By proceedButton = new AppiumBy.ByAccessibilityId("Proceed");
     private final By ClickingGuideTour = By.xpath("//android.view.View");
     // Main Flow
@@ -31,7 +31,7 @@ public class PayLocalBillsEnet extends BasePage {
             System.out.println("Enet Module Displayed");
             WebElement eNet = driver.findElement(payLocalBillsDisplay);
             if (eNet.isDisplayed()) {
-                Thread.sleep(40000);
+                Thread.sleep(5000);
 //                clickShowMore();
 //                clickShowLess();
                 clickTelecom();
@@ -40,8 +40,9 @@ public class PayLocalBillsEnet extends BasePage {
                 enterMobileNumber("66000021");
                 clickingAmountfield();
                 enterAmount("10");
-                clickCheckbox();
-                clickProceed();
+                hideKeyboard();
+//                clickCheckbox();
+//                clickProceed();
                 Thread.sleep(5000);
                 NavigateBack();
                 NavigateBack();

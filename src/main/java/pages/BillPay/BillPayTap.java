@@ -17,8 +17,6 @@ public class BillPayTap extends BasePage {
     }
 
     protected void BillPayTapping() throws InterruptedException {
-        Thread.sleep(3000);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
          clickWithWait(ClickingBillPay);
     }
 

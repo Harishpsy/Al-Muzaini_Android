@@ -12,15 +12,14 @@ public class TransferMoney extends BasePage {
         super();
     }
 
-    private final By TRANSFERMONEY = By.xpath("//android.view.ViewGroup[@content-desc=\"Transfer Money\"]");
+    private final By TRANSFERMONEY = By.xpath("//android.widget.TextView[@text=\"Send/Transfer Money\"]");
 
     public void TransferMoneyActions() throws InterruptedException {
         Transfermoney();
     }
 
     private void Transfermoney() throws InterruptedException {
-        Thread.sleep(10000);
-        click(TRANSFERMONEY);
+        clickWithWait(TRANSFERMONEY);
     }
 
 }

@@ -89,6 +89,7 @@ public class DriverFactory {
         UiAutomator2Options options = new UiAutomator2Options();
         options.setPlatformName(ConfigReader.getProperty("android.platform.name"));
         options.setDeviceName(ConfigReader.getProperty("android.device.name"));
+        options.setUdid(ConfigReader.getProperty("android.device.udid"));
         options.setAutomationName(ConfigReader.getProperty("android.automation.name"));
         options.setAppPackage(ConfigReader.getProperty("android.app.package"));
         options.setAppActivity(ConfigReader.getProperty("android.app.activity"));
