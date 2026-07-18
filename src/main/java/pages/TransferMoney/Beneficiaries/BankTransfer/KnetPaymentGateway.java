@@ -44,7 +44,7 @@ private final By ClickingCarknumber = By.xpath("//android.widget.EditText[@text=
     }
 
     protected void ClickingSelectYourBankAccount() throws InterruptedException {
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         clickWithWait(SelectYourBankName);
         sendKeys(SelectYourBankName,"8888880000000001");
     }

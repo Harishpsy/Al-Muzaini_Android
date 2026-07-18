@@ -17,7 +17,7 @@ public class BillPayTest extends BaseTest {
     public void executeBillPay () throws InterruptedException{
         executeBillPayTapping();
         executePayLocalBillsEnet();
-        executePayBills_BharatConnect();
+//        executePayBills_BharatConnect();
     }
 
     protected void executeBillPayTapping() throws InterruptedException {

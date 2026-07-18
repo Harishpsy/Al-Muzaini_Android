@@ -47,6 +47,7 @@ public class PayLocalBillsEnet extends BasePage {
                 NavigateBack();
                 NavigateBack();
                 NavigateBack();
+                NavigateBack();
             }
         } catch (Exception e) {
             System.out.println("Failed To Run Enet Module error: " + e.getMessage());
