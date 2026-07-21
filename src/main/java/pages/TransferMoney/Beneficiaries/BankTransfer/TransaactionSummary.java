@@ -17,7 +17,7 @@ public class TransaactionSummary extends BasePage {
     }
 
     private void BackToHome() throws InterruptedException {
-        Thread.sleep(5000);
+        Thread.sleep(7000);
         clickWithWait(BACKTOHOME);
         System.out.println("Successfully clicked the Back To Home");
     }

@@ -62,8 +62,8 @@ public class BankTransfer extends BasePage {
     }
 
     private void SendNow() throws InterruptedException {
-        Thread.sleep(5000);
-        click(SENDNOWBUTTON);
+        Thread.sleep(7000);
+        clickWithWait(SENDNOWBUTTON);
         System.out.println("Successfully clicked the Send Now");
     }
 
