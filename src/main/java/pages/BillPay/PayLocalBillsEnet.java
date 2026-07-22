@@ -28,10 +28,11 @@ public class PayLocalBillsEnet extends BasePage {
     // Validation
     protected void verifyEnetModuleDisplaying() throws InterruptedException {
         try {
-            System.out.println("Enet Module Displayed");
+
             WebElement eNet = driver.findElement(payLocalBillsDisplay);
+            System.out.println("Enet Module Displayed");
             if (eNet.isDisplayed()) {
-                Thread.sleep(5000);
+                Thread.sleep(10000);
 //                clickShowMore();
 //                clickShowLess();
                 clickTelecom();
@@ -51,6 +52,7 @@ public class PayLocalBillsEnet extends BasePage {
             }
         } catch (Exception e) {
             System.out.println("Failed To Run Enet Module error: " + e.getMessage());
+            NavigateBack();
             throw e;
         }
     }

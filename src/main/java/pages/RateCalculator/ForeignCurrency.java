@@ -28,15 +28,15 @@ public class ForeignCurrency extends BasePage {
         ClickingFcCurrency();
         clear(FCAmount);
         System.out.println("Successfully cleared the FC Currency");
-        ClickingLCTextField();
-        ClickingTheCurrency();
-        CloseIcon();
-        ClickingTheCurrency();
-        ClickingSeacrhField();
-        KeyboardOkButton();
-        scrollToEnd();
-        scrollToTop();
-        ClickingBharain();
+//        ClickingLCTextField();
+//        ClickingTheCurrency();
+//        CloseIcon();
+//        ClickingTheCurrency();
+//        ClickingSeacrhField();
+//        KeyboardOkButton();
+//        scrollToEnd();
+//        scrollToTop();
+//        ClickingBharain();
         ClickingBankTransfer();
         GuideTour();
         Thread.sleep(5000);
@@ -66,9 +66,8 @@ public class ForeignCurrency extends BasePage {
         clickWithWait(LCAmount);
         System.out.println("Successfully clicked the LC Currency");
         sendKeys(LCAmount, "1000");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(LCAmount));
-        clear(LCAmount);
-        System.out.println("Successfully cleared the LC Currency");
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(LCAmount));
+//        System.out.println("Successfully cleared the LC Currency");
     }
 
     protected void ClickingTheCurrency(){
@@ -93,7 +92,8 @@ public class ForeignCurrency extends BasePage {
         System.out.println("Successfully clicked the Bharain Currency");
     }
 
-    protected void ClickingBankTransfer(){
+    protected void ClickingBankTransfer() throws InterruptedException {
+        Thread.sleep(5000);
         clickWithWait(BankTransfer);
         System.out.println("Successfully clicked the Bank Transfer");
     }
@@ -108,12 +108,13 @@ public class ForeignCurrency extends BasePage {
 
             CancelButton();
 
-            Thread.sleep(5000);
+            Thread.sleep(10000);
             NavigateBack();
 
             ClickingFcCurrency();
-            KeyboardOkButton();
             Thread.sleep(5000);
+            KeyboardOkButton();
+//            Thread.sleep(5000);
             ClickingBankTransfer();
 
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

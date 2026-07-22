@@ -12,7 +12,7 @@ public class TransferMoney extends BasePage {
         super();
     }
 
-    private final By TRANSFERMONEY = By.xpath("//android.widget.TextView[@text=\"Send/Transfer Money\"]");
+    private final By TRANSFERMONEY = By.xpath("//android.widget.TextView[contains(@text,'Money')]");
 
     public void TransferMoneyActions() throws InterruptedException {
         Transfermoney();

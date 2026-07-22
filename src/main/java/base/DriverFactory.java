@@ -112,7 +112,7 @@ public class DriverFactory {
         options.setCapability("androidInstallTimeout", 120000);
         options.setCapability("androidDeviceReadyTimeout", 120);
         options.setCapability("appWaitDuration", 60000);
-        options.setCapability("ignoreUnimportantViews", true);
+        options.setCapability("ignoreUnimportantViews", false);
         options.setCapability("dontStopAppOnReset", true);
         options.setCapability("clearDeviceLogsOnStart", true);
         options.setCapability("enablePerformanceLogging", false);
