@@ -174,13 +174,22 @@ public abstract class BasePage {
 
     // Method to handle guide tour popup by clicking multiple times
     protected void GuideTour() {
-        for(int i = 0; i < 6; i++) { // Loop for max 6 steps
-            try {
-                clickWithWait(ClickingGuideTour); // Click guide tour overlay
-            } catch (Exception e) { // Break if no more steps
+        for (int i = 0; i < 6; i++) {
+            if (!isElementDisplayed(ClickingGuideTour)) {
                 System.out.println("Guide Tour stopped at step " + (i + 1));
                 break;
             }
+            clickWithWait(ClickingGuideTour);
+        }
+    }
+
+    public boolean isElementDisplayed(By locator) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
         }
     }
 

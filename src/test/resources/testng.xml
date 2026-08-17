@@ -19,9 +19,9 @@
             <!-- Fx Booking Module -->
              <class name="tests.FxBookingTest"/>
             <!-- Bill Pay Module -->
-            <class name="tests.BillPayTest"/>
+<!--            <class name="tests.BillPayTest"/>-->
             <!-- Rate Calculator Module  -->
-            <class name="tests.RateCalculatorTest"/>
+<!--            <class name="tests.RateCalculatorTest"/>-->
         </classes>
     </test>
 

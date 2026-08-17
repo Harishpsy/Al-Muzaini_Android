@@ -8,11 +8,14 @@ import org.openqa.selenium.Keys; // Import for keyboard actions
 
 import pages.TransferMoney.Beneficiaries.BankTransfer.KnetPaymentGateway;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 // Page class for FX Booking screen extending BasePage
 public class FxbookingPage extends BasePage {
 
     // Locator for selecting currency dropdown
-   private final By SelectCurrencyTapping = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"Select Currency\")");
+   private final By SelectCurrencyTapping = By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]");
 
     // Locator for search input field
     private final By clickingSearch = By.className("android.widget.EditText");
@@ -36,23 +39,23 @@ public class FxbookingPage extends BasePage {
     private final By ClickingThePurposeOfTransferDropdown = By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]");
 
     // Locator for closing popup (Purpose of Transfer)
-    private final By ClickingClosingButton = By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup");
+    private final By ClickingClosingButton = By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]");
 
     // Locator for Preferred Date input field
     private final By PrefferedDate = By.xpath("//android.view.ViewGroup[@content-desc=\"Preferred Date*\"]/android.view.ViewGroup");
 
     // Locator for Preferred Date dropdown
-    private final By ClickingPrefferedDateDropdown = new AppiumBy.ByAndroidUIAutomator("new UiSelector().className(\"android.view.ViewGroup\").instance(14)");
+    private final By ClickingPrefferedDateDropdown = By.xpath("(//android.widget.TextView[contains(@text,'2026')])[1]");
 
     // Locator for closing Preferred Date popup
-    private final By ClickingCloseIcon = By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup");
+    private final By ClickingCloseIcon = By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]");
 
     // Locator for selecting Time Slot
     private final By TimeSlot = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"Time Slot*\")");
     // Locator for closing Time Slot popup
     private final By ClickingCloseIconTimeSlot = By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]");
 
-    private final By ClickingTimeSlotBottomSheetdata = new AppiumBy.ByAndroidUIAutomator("new UiSelector().className(\"android.view.ViewGroup\").instance(17)");
+    private final By ClickingTimeSlotBottomSheetdata = By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]");
 
     // Locator for Proceed button
     private final By ProceedButton = new AppiumBy.ByAccessibilityId("Proceed");
@@ -60,7 +63,7 @@ public class FxbookingPage extends BasePage {
     // Locator for Add Currency button
     private final By AddCurrency = new AppiumBy.ByAccessibilityId("Add Currency");
 
-    private final By DeliveryInstruction = By.xpath("//android.view.ViewGroup[@content-desc=\"Delivery Instructions\"]/android.view.ViewGroup/android.view.ViewGroup[2]");
+    private final By DeliveryInstruction = By.xpath("//android.view.ViewGroup[@content-desc=\"Delivery Instructions\"]/android.view.ViewGroup/com.horcrux.svg.SvgView");
 
     private final By ClickingDeliveryInstructionBottonSheet = By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]");
 
@@ -68,7 +71,7 @@ public class FxbookingPage extends BasePage {
 
     private final By TransferSummaryTermsAndConditions = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"Terms & Conditions\")");
 
-    private final By ClickingCloseIconInTermsAndConditionsModal = By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup");
+    private final By ClickingCloseIconInTermsAndConditionsModal = By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup");
 
     private final By ClickingOkButtonInTermsAndConditionsModal = new AppiumBy.ByAccessibilityId("OK");
 
@@ -103,20 +106,9 @@ public class FxbookingPage extends BasePage {
         TransactionReceipt();
     }
 
-    // Method to handle guide tour popup by clicking multiple times
-    protected void GuideTour() {
-        for(int i = 0; i < 6; i++) { // Loop for max 6 steps
-            try {
-                clickWithWait(ClickingGuideTour); // Click guide tour overlay
-            } catch (Exception e) { // Break if no more steps
-                System.out.println("Guide Tour stopped at step " + (i + 1));
-                break;
-            }
-        }
-    }
-
     // Method to open currency dropdown
-    protected void SelectCurrencyDropDown() {
+    protected void SelectCurrencyDropDown() throws InterruptedException {
+        Thread.sleep(5000);
         clickWithWait(SelectCurrencyTapping); // Click dropdown
         System.out.println("Selecting Currency Dropdown");
     }
@@ -188,7 +180,7 @@ public class FxbookingPage extends BasePage {
         clickingPrefferedDateDropdown(); // Open dropdown
         clickingCloseIconPrefferedDate(); // Close dropdown
         clickingPrefferedDateDropdown(); // Re-open dropdown
-        SelectingPrefferedDate(); // Select date
+        SelectingPreferedDate(); // Select date
     }
 
     // Click Preferred Date dropdown
@@ -199,7 +191,7 @@ public class FxbookingPage extends BasePage {
     }
 
     // Select Preferred Date
-    protected void SelectingPrefferedDate() throws InterruptedException {
+    protected void SelectingPreferedDate() throws InterruptedException {
         Thread.sleep(1000);
         clickWithWait(ClickingPrefferedDateDropdown);
         System.out.println("Successfully clicked the Preffered Date Dropdown data");
@@ -249,7 +241,7 @@ public class FxbookingPage extends BasePage {
     protected void TransferSummaryActions(){
         ClickingBackButton(); // Back Button
         ClickingTheProceedButton();
-//        DelevieryInstructionActions(); //Delivery Instruction Screen Actions
+        DelevieryInstructionActions(); //Delivery Instruction Screen Actions
         TermsAndConditionsActions(); //Terms & Conditions Actions
     }
 
