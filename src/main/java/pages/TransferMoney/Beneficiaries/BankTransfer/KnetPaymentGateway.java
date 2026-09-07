@@ -31,22 +31,32 @@ private final By ClickingCarknumber = By.xpath("//android.widget.EditText[@text=
     }
 
     public void KnetActions() throws InterruptedException {
-        ClickingSelectYourBankAccount();
+        java.util.List<Object[]> knetData = utils.ExcelUtils.getTestData("Knet.xlsx");
+        if (!knetData.isEmpty()) {
+            Object[] row = knetData.get(0);
+            KnetActions(row[0].toString(), row[1].toString(), row[2].toString());
+        } else {
+            throw new RuntimeException("No test data found in Knet.xlsx");
+        }
+    }
+
+    public void KnetActions(String cardNumber, String expiryDate, String pin) throws InterruptedException {
+        ClickingSelectYourBankAccount(cardNumber);
 //        SelectingBankNameInTheModal();
 //        ClickingCardNumberFiled();
-        ClickingTheMonthTextField();
+        ClickingTheMonthTextField(expiryDate);
 //        SelectingTheMonthInModal();
 //        ClickingTheYearTextField();
 //        SelectingTheYearInModal();
-        ClickingAndEnteringCardPin();
+        ClickingAndEnteringCardPin(pin);
         ClickingSubmitButton();
         ClickingTheConfirmButton();
     }
 
-    protected void ClickingSelectYourBankAccount() throws InterruptedException {
+    protected void ClickingSelectYourBankAccount(String cardNumber) throws InterruptedException {
         Thread.sleep(10000);
         clickWithWait(SelectYourBankName);
-        sendKeys(SelectYourBankName,"8888880000000001");
+        sendKeys(SelectYourBankName, cardNumber);
     }
 
 //    protected void SelectingBankNameInTheModal() throws InterruptedException {
@@ -63,9 +73,9 @@ private final By ClickingCarknumber = By.xpath("//android.widget.EditText[@text=
 //        sendKeys(EnteringCardNumber, "1000000001");
 //    }
 
-    protected void ClickingTheMonthTextField() {
+    protected void ClickingTheMonthTextField(String expiryDate) {
         clickWithWait(ExpireDateMonth);
-        sendKeys(ExpireDateMonth,"0930");
+        sendKeys(ExpireDateMonth, expiryDate);
     }
 
 //    protected void SelectingTheMonthInModal() {
@@ -80,14 +90,13 @@ private final By ClickingCarknumber = By.xpath("//android.widget.EditText[@text=
 //        clickWithWait(ClickingTheYearInPopup);
 //    }
 
-    protected void ClickingAndEnteringCardPin() {
+    protected void ClickingAndEnteringCardPin(String pin) {
         clickWithWait(Pin);
-        sendKeys(EnteringPin, "0000");
+        sendKeys(EnteringPin, pin);
     }
 
     protected void ClickingSubmitButton() {
-
-        clickWithWait(Submit );
+        clickWithWait(Submit);
     }
 
     protected void ClickingTheConfirmButton() {

@@ -53,6 +53,14 @@ public class DataProviders {
     public static Iterator<Object[]> getRateCalculatorData() {
         return ExcelUtils.getTestData("RateCalculator.xlsx").iterator();
     }
+
+    // ==========================================
+    // 7. Knet Payment Data Provider
+    // ==========================================
+    @DataProvider(name = "Knet")
+    public static Iterator<Object[]> getKnetData() {
+        return ExcelUtils.getTestData("Knet.xlsx").iterator();
+    }
 }
 
 

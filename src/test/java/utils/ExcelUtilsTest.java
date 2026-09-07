@@ -111,6 +111,23 @@ public class ExcelUtilsTest {
         Assert.assertTrue(dp.hasNext(), "RateCalculator data provider must yield test records");
     }
 
+    @Test(description = "Verify reading Knet.xlsx dynamically")
+    public void testReadKnetExcel() {
+        List<Object[]> rows = ExcelUtils.getTestData("Knet.xlsx");
+        Assert.assertFalse(rows.isEmpty(), "Knet.xlsx must contain at least one data row");
+        for (Object[] row : rows) {
+            Assert.assertEquals(row.length, 3, "Knet row must have 3 columns (cardNumber, expiryDate, pin)");
+            Assert.assertNotNull(row[0], "cardNumber must not be null");
+            Assert.assertNotNull(row[1], "expiryDate must not be null");
+            Assert.assertNotNull(row[2], "pin must not be null");
+            Assert.assertFalse(row[0].toString().contains("E+"), "cardNumber should not be in scientific notation");
+        }
+
+        // Verify DataProvider
+        Iterator<Object[]> dp = DataProviders.getKnetData();
+        Assert.assertTrue(dp.hasNext(), "Knet data provider must yield test records");
+    }
+
     @Test(description = "Verify reading as Map dynamically")
     public void testReadAsMap() {
         List<Map<String, String>> mapList = ExcelUtils.getTestDataAsMap("Login.xlsx", null);
