@@ -23,12 +23,12 @@ public class ForeignCurrency extends BasePage {
     private final By CancelButton =new AppiumBy.ByAccessibilityId("Cancel");
 
 
-    public void ForeignCurrencyActions() throws InterruptedException {
+    public void ForeignCurrencyActions(String fcAmount, String lcAmount) throws InterruptedException {
         TappingForeignCurrencyTab();
-        ClickingFcCurrency();
+        ClickingFcCurrency(fcAmount);
         clear(FCAmount);
         System.out.println("Successfully cleared the FC Currency");
-//        ClickingLCTextField();
+//        ClickingLCTextField(lcAmount);
 //        ClickingTheCurrency();
 //        CloseIcon();
 //        ClickingTheCurrency();
@@ -43,11 +43,11 @@ public class ForeignCurrency extends BasePage {
         NavigateBack();
         TappingForeignCurrencyTab();
         GuideTour();
-        ClickingFcCurrency();
+        ClickingFcCurrency(fcAmount);
         KeyboardOkButton();
         Thread.sleep(5000);
         ClickingBankTransfer();
-        confirmationPopup();
+        confirmationPopup(fcAmount);
         ConfirmationPopupInFxBooking();
 
     }
@@ -56,16 +56,16 @@ public class ForeignCurrency extends BasePage {
         clickWithWait(ForeignCurrency);
     }
 
-    protected void ClickingFcCurrency(){
+    protected void ClickingFcCurrency(String amount){
         clickWithWait(FCAmount);
         System.out.println("Successfully clicked the FC Currency");
-        sendKeys(FCAmount, "100");
+        sendKeys(FCAmount, amount);
     }
 
-    protected void ClickingLCTextField(){
+    protected void ClickingLCTextField(String amount){
         clickWithWait(LCAmount);
         System.out.println("Successfully clicked the LC Currency");
-        sendKeys(LCAmount, "1000");
+        sendKeys(LCAmount, amount);
 //        wait.until(ExpectedConditions.visibilityOfElementLocated(LCAmount));
 //        System.out.println("Successfully cleared the LC Currency");
     }
@@ -98,7 +98,7 @@ public class ForeignCurrency extends BasePage {
         System.out.println("Successfully clicked the Bank Transfer");
     }
 
-    protected void confirmationPopup() throws InterruptedException {
+    protected void confirmationPopup(String fcAmount) throws InterruptedException {
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(ConfirmationPopup));
 
@@ -111,7 +111,7 @@ public class ForeignCurrency extends BasePage {
             Thread.sleep(10000);
             NavigateBack();
 
-            ClickingFcCurrency();
+            ClickingFcCurrency(fcAmount);
             Thread.sleep(5000);
             KeyboardOkButton();
 //            Thread.sleep(5000);

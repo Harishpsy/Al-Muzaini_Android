@@ -21,12 +21,12 @@ public class PayLocalBillsEnet extends BasePage {
     private final By proceedButton = new AppiumBy.ByAccessibilityId("Proceed");
     private final By ClickingGuideTour = By.xpath("//android.view.View");
     // Main Flow
-    public void eNetActions() throws InterruptedException {
-        verifyEnetModuleDisplaying();
+    public void eNetActions(String mobileNumber, String amount) throws InterruptedException {
+        verifyEnetModuleDisplaying(mobileNumber, amount);
     }
 
     // Validation
-    protected void verifyEnetModuleDisplaying() throws InterruptedException {
+    protected void verifyEnetModuleDisplaying(String mobileNumberValue, String amountValue) throws InterruptedException {
         try {
 
             WebElement eNet = driver.findElement(payLocalBillsDisplay);
@@ -38,9 +38,9 @@ public class PayLocalBillsEnet extends BasePage {
                 clickTelecom();
                 clickOoredoo();
                 clickBillPayment();
-                enterMobileNumber("66000021");
+                enterMobileNumber(mobileNumberValue);
                 clickingAmountfield();
-                enterAmount("10");
+                enterAmount(amountValue);
                 hideKeyboard();
 //                clickCheckbox();
 //                clickProceed();

@@ -12,33 +12,33 @@ public class Transfer extends BasePage {
     private final By ClickingClose = By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup");
     private final By ClickingSearchField = By.xpath("//android.widget.EditText[contains(@text, \"\")]");
 
-    public void TransferActions() throws InterruptedException {
+    public void TransferActions(String fcAmount, String lcAmount, String searchCurrency) throws InterruptedException {
         implicitwait();
-        ClickingFcCurrency();
-        ClickingLCTextField();
+        ClickingFcCurrency(fcAmount);
+        ClickingLCTextField(lcAmount);
         ClickingTheCurrency();
 //        CloseIcon();
 //        ClickingTheCurrency();
-        ClickingSeacrhField();
+        ClickingSeacrhField(searchCurrency);
         KeyboardOkButton();
         scrollToEnd();
         scrollToTop();
         ClickingBharain();
     }
 
-    protected void ClickingFcCurrency() throws InterruptedException {
+    protected void ClickingFcCurrency(String amount) throws InterruptedException {
         clickWithWait(FCAmount);
         System.out.println("Successfully clicked the FC Currency");
-        sendKeys(FCAmount, "100");
+        sendKeys(FCAmount, amount);
         Thread.sleep(5000);
         clear(FCAmount);
         System.out.println("Successfully cleared the FC Currency");
     }
 
-    protected void ClickingLCTextField() throws InterruptedException {
+    protected void ClickingLCTextField(String amount) throws InterruptedException {
         clickWithWait(LCAmount);
         System.out.println("Successfully clicked the LC Currency");
-        sendKeys(LCAmount, "1000");
+        sendKeys(LCAmount, amount);
         Thread.sleep(5000);
         clear(LCAmount);
         System.out.println("Successfully cleared the LC Currency");
@@ -59,10 +59,10 @@ public class Transfer extends BasePage {
         clickWithWait(ClickingClose);
     }
 
-    protected void ClickingSeacrhField() throws InterruptedException {
+    protected void ClickingSeacrhField(String searchTerm) throws InterruptedException {
         Thread.sleep(2000);
         clickWithWait(ClickingSearchField);
-        sendKeys(ClickingSearchField, "BAH");
+        sendKeys(ClickingSearchField, searchTerm);
         clear(ClickingSearchField);
     }
 

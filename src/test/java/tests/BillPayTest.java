@@ -10,13 +10,13 @@ import utils.DataProviders;
 public class BillPayTest extends BaseTest {
 
     @Test(
-            priority = 4
-            // dataProvider = "",
-            // dataProviderClass = DataProviders.class
+            priority = 4,
+            dataProvider = "BillPay",
+            dataProviderClass = DataProviders.class
     )
-    public void executeBillPay () throws InterruptedException{
+    public void executeBillPay(String mobileNumber, String amount) throws InterruptedException {
         executeBillPayTapping();
-        executePayLocalBillsEnet();
+        executePayLocalBillsEnet(mobileNumber, amount);
 //        executePayBills_BharatConnect();
     }
 
@@ -25,9 +25,9 @@ public class BillPayTest extends BaseTest {
         billPay.BillPayActions();
     }
 
-    protected void executePayLocalBillsEnet() throws InterruptedException {
+    protected void executePayLocalBillsEnet(String mobileNumber, String amount) throws InterruptedException {
         PayLocalBillsEnet payLocalBills_enet = new PayLocalBillsEnet();
-        payLocalBills_enet.eNetActions();
+        payLocalBills_enet.eNetActions(mobileNumber, amount);
     }
 
     protected void executePayBills_BharatConnect() throws InterruptedException {

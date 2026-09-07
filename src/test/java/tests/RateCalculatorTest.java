@@ -6,18 +6,20 @@ import pages.RateCalculator.ForeignCurrency;
 import pages.RateCalculator.RateCalculatorTap;
 import pages.RateCalculator.Transfer;
 
+import utils.DataProviders;
+
 public class RateCalculatorTest extends BaseTest {
 
     @Test(
-            priority = 5
-            // dataProvider = "",
-            // dataProviderClass = DataProviders.class
+            priority = 5,
+            dataProvider = "RateCalculator",
+            dataProviderClass = DataProviders.class
     )
 
-    public void executeRateCalculator() throws InterruptedException {
+    public void executeRateCalculator(String fcAmount, String lcAmount, String currencySearch) throws InterruptedException {
         TappingRateCalculator();
-        executingTransfer();
-        executeForiegnCurrency();
+        executingTransfer(fcAmount, lcAmount, currencySearch);
+        executeForiegnCurrency(fcAmount, lcAmount);
     }
 
     protected void TappingRateCalculator() {
@@ -26,14 +28,14 @@ public class RateCalculatorTest extends BaseTest {
         TappingRateCalculator.RateCalculatorTap();
     }
 
-    protected void executingTransfer() throws InterruptedException {
+    protected void executingTransfer(String fcAmount, String lcAmount, String currencySearch) throws InterruptedException {
         Transfer Transferaction = new  Transfer();
-        Transferaction.TransferActions();
+        Transferaction.TransferActions(fcAmount, lcAmount, currencySearch);
     }
 
-    protected void executeForiegnCurrency() throws InterruptedException {
+    protected void executeForiegnCurrency(String fcAmount, String lcAmount) throws InterruptedException {
         ForeignCurrency  foreignCurrency = new  ForeignCurrency();
-        foreignCurrency.ForeignCurrencyActions();
+        foreignCurrency.ForeignCurrencyActions(fcAmount, lcAmount);
     }
 
 
