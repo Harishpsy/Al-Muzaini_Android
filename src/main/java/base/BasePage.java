@@ -143,7 +143,7 @@ public abstract class BasePage {
         System.out.println("Navigated to back Successfully");
     }
 
-/*   Navigate Back To Application */
+    /*   Navigate Back To Application */
     protected void NavigateBackToApp() {
 
         AndroidDriver driver = (AndroidDriver) getDriver();

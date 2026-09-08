@@ -2,7 +2,9 @@ package utils;
 
 import org.testng.annotations.DataProvider;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class DataProviders {
 
@@ -60,6 +62,15 @@ public class DataProviders {
     @DataProvider(name = "Knet")
     public static Iterator<Object[]> getKnetData() {
         return ExcelUtils.getTestData("Knet.xlsx").iterator();
+    }
+
+    //Add Beneficiary Data Provider
+    @DataProvider(name = "AddBeneficiary")
+    public static Iterator<Object[]> getAddBeneficiaryData() throws Exception{
+        String filePath = "src/main/resources/Testdata/AddBeneficiary.xlsx";
+        List<Object[]> testData = new ArrayList<>();
+        //Read Excel using ExcelUtils
+        return testData.iterator();
     }
 }
 
