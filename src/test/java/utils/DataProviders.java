@@ -66,12 +66,8 @@ public class DataProviders {
 
     //Add Beneficiary Data Provider
     @DataProvider(name = "AddBeneficiary")
-    public static Iterator<Object[]> getAddBeneficiaryData() throws Exception{
-        String filePath = "src/main/resources/Testdata/AddBeneficiary.xlsx";
-        List<Object[]> testData = new ArrayList<>();
-        //Read Excel using ExcelUtils
-        return testData.iterator();
-    }
+    public static Iterator<Object[]> getAddBeneficiaryData() { return ExcelUtils.getTestData("AddBeneficiary.xlsx").iterator(); }
+
 }
 
 

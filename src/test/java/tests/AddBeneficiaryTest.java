@@ -1,46 +1,37 @@
 package tests;
 
 import base.BaseTest;
-import org.testng.annotations.DataProvider;
-import java.util.List;
-import java.util.Map;
-
 import utils.DataProviders;
-import utils.ExcelUtils;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import base.DriverFactory;
 import pages.AddBeneficiary.AddBeneficiaryTap;
+import pages.AddBeneficiary.Select_CountryAndCurrency;
 
-import java.beans.Transient;
 
-public class AddBeneficiaryTest {
-    @BeforeMethod
-    public void setup() {
-        DriverFactory.setDriver("android");
-    }
 
-    @Test(dataProvider = "AddBeneficiary", dataProviderClass = DataProviders.class)
-    public void executeAddBeneficiary(String countryCode, String currencyCode) throws InterruptedException {
-        System.out.println("Country Code: " + countryCode);
-        System.out.println("Currency Code: " + currencyCode);
-        executeAddBeneficiaryTapping(countryCode, currencyCode);
-    }
+public class AddBeneficiaryTest extends BaseTest {
 
-    protected void executeAddBeneficiaryTapping(String countryCode, String currencyCode) throws InterruptedException {
+    @Test
+    public void executeAddBeneficiary() throws InterruptedException {
+        //executeAddBeneficiaryTapping();
+    //}
+
+    //protected void executeAddBeneficiaryTapping() throws InterruptedException {
+        //Open Add Beneficiary
         AddBeneficiaryTap addbeneficiary = new AddBeneficiaryTap();
-        addbeneficiary.AddBeneficiaryActions(countryCode, currencyCode);
+        addbeneficiary.AddBeneficiaryActions();
+        String country = "BANGLADESH";
+
+        //Select Country
+        Select_CountryAndCurrency countryAndCurrency = new Select_CountryAndCurrency();
+        //Step 1
+        countryAndCurrency.clickSelectCountry();
+        //Step 2
+        countryAndCurrency.enterCountry("BANGLADESH");
+        //Step 3
+        countryAndCurrency.selectCountryFromDropdown(country);
+
+
     }
 
-    @DataProvider(name = "AddBeneficiary")
-    public Object[][] getAddBeneficiaryData() {
-        List<Map<String, String>> data = ExcelUtils.getTestDataAsMap("AddBeneficiary.xlsx", "Sheet1");
-        Object[][] result = new Object[data.size()][];
-
-        for (int i = 0; i < data.size(); i++) {
-            result[i] = new Object[]{data.get(i)};
-        }
-        return result;
-    }
 }
 
