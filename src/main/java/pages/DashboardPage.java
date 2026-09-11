@@ -19,6 +19,8 @@ public class DashboardPage extends BasePage {
     // ===================== Locators =====================
 
     private final By EnableBiometric = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"Enable\")");
+    private final By BioMetricBottomSheet = By.xpath("//android.widget.TextView[@text=\"Enable Biometric\"]");
+
 
     // Locator for guide tour overlay clicks
     private final By ClickingGuideTour = By.className("android.view.View");
@@ -42,15 +44,14 @@ public class DashboardPage extends BasePage {
      * after a successful login. Clicks "Enable" if present; silently skips
      * if the popup does not appear within the timeout.
      */
-    public void handleBiometricPopup() {
+    public void handleBiometricPopup()  {
         try {
-            System.out.println("Dashboard: Checking for Enable Biometric popup...");
-            Thread.sleep(5000); // Optional: wait for the popup to stabilize
-            clickWithWait(EnableBiometric);
-            System.out.println("Dashboard: Enable Biometric button clicked successfully");
-
+            if(driver.findElement(BioMetricBottomSheet).isDisplayed()) {
+                clickWithWait(EnableBiometric);
+                System.out.println("Dashboard: Enable Biometric button clicked successfully");
+            }
         } catch (Exception e) {
-            System.out.println("Dashboard: Enable Biometric popup not displayed or not clickable within timeout");
+            System.out.println("Dashboard: Enable Biometric popup not displayed");
         }
     }
 

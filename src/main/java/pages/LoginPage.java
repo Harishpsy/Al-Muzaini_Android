@@ -25,7 +25,8 @@ public class LoginPage extends BasePage {
     private final By loginButton = By.xpath("//android.view.ViewGroup[@content-desc=\"Login\"]");
     private final By GoogleNoThanks = By.id("android:id/autofill_dialog_no");
     private final By GoogleDialog = By.xpath("//android.widget.LinearLayout[@resource-id=\"android:id/autofill_dialog_picker\"]");
-
+    private final By DeviceActivation = By.xpath("//android.widget.TextView[@text=\"Device Activation\"]");
+    private final By ClickingOkInDeviceActivationPopup = new AppiumBy.ByAccessibilityId("OK");
 
     public void login(String username, String password) throws InterruptedException {
 //        // Adding a small delay to ensure app is loaded
@@ -42,18 +43,26 @@ public class LoginPage extends BasePage {
             enterUsername(username);
             enterPassword(password);
             clickLoginButton();
+            deviceActivation();
             System.out.println("Login with username and password");
         } else {
             // Username field is not visible - enter only password
             enterPassword(password);
             clickLoginButton();
+            deviceActivation();
             System.out.println("Login with password only (username field not present)");
         }
+
+        //OTP Verification page
+        OTPVerififcationPage otpVerififcationPage = new OTPVerififcationPage();
+        otpVerififcationPage.OtpVerificationPageCommonActions();
 
         // After login, navigate to Dashboard and handle biometric popup
         DashboardPage dashboardPage = new DashboardPage();
         dashboardPage.handleBiometricPopup();
-        dashboardPage.GuideTour();
+
+        // Guide tour
+//        dashboardPage.GuideTour();
     }
 
     public void handleNotification(){
@@ -116,12 +125,25 @@ public class LoginPage extends BasePage {
     }
 
     // Biometric popup is now handled by DashboardPage#handleBiometricPopup()
-
     public void verifyLoginSuccess() {
         // This is a placeholder for actual verification logic
         // For now, we'll just log that verification is requested
         System.out.println("Verification of login success requested.");
         // Example: wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dashboard_view")));
+    }
+
+    protected void deviceActivation() throws InterruptedException {
+        Thread.sleep(5000);
+        try {
+
+            if (driver.findElement(DeviceActivation).isDisplayed()) {
+                System.out.println("Device activation popup was displayed.");
+                clickWithWait(ClickingOkInDeviceActivationPopup);
+            }
+
+        }catch (Exception e) {
+            System.out.println("Device activation popup was not displayed.");
+        }
     }
 
     protected void GoogleNoThanksButton(){

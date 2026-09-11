@@ -6,6 +6,7 @@ import  io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.AddBeneficiary.Select_CountryAndCurrency;
@@ -16,15 +17,24 @@ public class Select_CountryAndCurrency extends BasePage {
     private final By selectCountry = new AppiumBy.ByAccessibilityId("Select Country");
 
     //2. Locator for Enter Country(Country search text box)
-    private final By countrySearchField = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"Search Select Country\")");
+    private final By countrySearchField = By.className("android.widget.EditText");
 
     //3. Locator for Select Country option from dropdown
-    private final By countryOption = new AppiumBy.ByAndroidUIAutomator("new UiSelector().description(\"BANGLADESH\")");
+    private final By Selectingcountry = new AppiumBy.ByAccessibilityId("BANGLADESH");
 
     //Locator for selecting Currency
     private final By selectCurrency = new  AppiumBy.ByAccessibilityId("Select Currency");
     //Locator for clicking Continue
     private final By ClickingCountinue = new  AppiumBy.ByAccessibilityId("Continue");
+
+
+    public void Select_CountryAndCurrencyCommonActions() throws InterruptedException {
+        clickSelectCountry();
+        enterCountry();
+        hideKeyboard();
+        selectCountryFromDropdown();
+    }
+
 
     //Step1 Click select Country
     public void clickSelectCountry() {
@@ -33,27 +43,23 @@ public class Select_CountryAndCurrency extends BasePage {
         }
 
     //Step2 Enter country Name
-    public void enterCountry(String country) {
-       clickWithWait(countrySearchField);
-       sendKeys(countrySearchField, "BANGLADESH");
-        System.out.println("Country entered:" + country);
+    public void enterCountry() throws InterruptedException {
+        Thread.sleep(5000);
+        WebElement country = wait.until(ExpectedConditions.elementToBeClickable(countrySearchField));
+        country.click();
+        country.sendKeys("BANGLADESH");
+        System.out.println("Country entered:");
+
     }
 
     //Step3 Select Country from dropdown
-    public void selectCountryFromDropdown(String country) throws InterruptedException {
-
-        //wait for keyboard/search result to appear
-        System.out.println("Before hiding keyboard");
-        //Close Android Keyboard
-        hideKeyboard();
+    public void selectCountryFromDropdown() throws InterruptedException {
         Thread.sleep(5000);
-        System.out.println("After hiding keyboard");
-
         //Searched country result appears below the search box
-        WebElement countryOptionElement = wait.until(ExpectedConditions.elementToBeClickable(countryOption));
-
-        countryOptionElement.click();
-        System.out.println("Bangladesh country: " + country);
+//        WebElement countryOptionElement = wait.until(ExpectedConditions.elementToBeClickable(countryOption));
+//        countryOptionElement.click();
+        clickWithWait(Selectingcountry);
+        System.out.println("Successfully clicked the Country from Dropdown");
     }
 }
 

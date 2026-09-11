@@ -1,35 +1,27 @@
 package tests;
 
 import base.BaseTest;
-import utils.DataProviders;
 import org.testng.annotations.Test;
 import pages.AddBeneficiary.AddBeneficiaryTap;
 import pages.AddBeneficiary.Select_CountryAndCurrency;
 
-
-
 public class AddBeneficiaryTest extends BaseTest {
 
     @Test
-    public void executeAddBeneficiary() throws InterruptedException {
-        //executeAddBeneficiaryTapping();
-    //}
+    public void AddBeneficiaryflow() throws InterruptedException {
+        executeAddBeneficiary();
+        AddBeneficiaryDropdown();
+    }
 
-    //protected void executeAddBeneficiaryTapping() throws InterruptedException {
+    protected void executeAddBeneficiary() throws InterruptedException {
         //Open Add Beneficiary
-        AddBeneficiaryTap addbeneficiary = new AddBeneficiaryTap();
-        addbeneficiary.AddBeneficiaryActions();
-        String country = "BANGLADESH";
+        AddBeneficiaryTap beneficiary = new AddBeneficiaryTap();
+        beneficiary.AddBeneficiaryActions();
+    }
 
-        //Select Country
-        Select_CountryAndCurrency countryAndCurrency = new Select_CountryAndCurrency();
-        //Step 1
-        countryAndCurrency.clickSelectCountry();
-        //Step 2
-        countryAndCurrency.enterCountry("BANGLADESH");
-        //Step 3
-        countryAndCurrency.selectCountryFromDropdown(country);
-
+    protected void AddBeneficiaryDropdown() throws InterruptedException {
+        Select_CountryAndCurrency selectCountryAndCurrency = new Select_CountryAndCurrency();
+        selectCountryAndCurrency.Select_CountryAndCurrencyCommonActions();
 
     }
 
