@@ -62,6 +62,27 @@ public abstract class BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
+    protected void scrollWithClick(By locator) {
+        try {
+            scrollToEnd();
+        } catch (Exception e) {
+            System.out.println("Scroll failed or screen not scrollable: " + e.getMessage());
+        }
+        clickWithWait(locator);
+        System.out.println("Scrolled and clicked on: " + locator);
+    }
+
+    protected void scrollWithClickElement(WebElement element) {
+        try {
+            scrollToEnd();
+        } catch (Exception e) {
+            System.out.println("Scroll failed or screen not scrollable: " + e.getMessage());
+        }
+        WaitUtils.waitForElementToBeClickable(element);
+        element.click();
+        System.out.println("Scrolled and clicked on element: " + element);
+    }
+
 //    protected void clickWithWait(By locator) {
 //
 //        int attempts = 0;
