@@ -10,9 +10,9 @@ import base.BaseTest;
 public class TransferMoneyTest extends BaseTest {
 
     @Test (priority = 2, dataProvider = "BankTransfer", dataProviderClass = utils.DataProviders.class)
-    public void executeTransferMoneyTest(String YouSend, String ReEnterYouSend, String TheyReceive) throws InterruptedException {
+    public void executeTransferMoneyTest(String YouSend, String TheyReceive, String ReEnterYouSend) throws InterruptedException {
         executeTransferMoney();
-        executeBankTransfer(YouSend,ReEnterYouSend);
+        executeBankTransfer(YouSend, ReEnterYouSend);
         Thread.sleep(10000);
     }
 
@@ -23,7 +23,7 @@ public class TransferMoneyTest extends BaseTest {
 
     private void executeBankTransfer(String YouSend, String ReEnterYouSend) throws InterruptedException {
         BankTransfer Banktransfer = new BankTransfer();
-        Banktransfer.BankTransferAction(YouSend,ReEnterYouSend );
+        Banktransfer.BankTransferAction(YouSend, ReEnterYouSend );
     }
 
 

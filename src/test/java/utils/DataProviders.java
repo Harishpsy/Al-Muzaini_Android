@@ -5,6 +5,7 @@ import org.testng.annotations.DataProvider;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class DataProviders {
 
@@ -64,9 +65,15 @@ public class DataProviders {
         return ExcelUtils.getTestData("Knet.xlsx").iterator();
     }
 
-    //Add Beneficiary Data Provider
+    // ==========================================
+    // 8. Add Beneficiary Data Provider
+    // ==========================================
+
     @DataProvider(name = "AddBeneficiary")
-    public static Iterator<Object[]> getAddBeneficiaryData() { return ExcelUtils.getTestData("AddBeneficiary.xlsx").iterator(); }
+    public static Iterator<Object[]> getAddBeneficiaryData() {
+        return ExcelUtils.getTestData("BankTransfer.xlsx").iterator();
+    }
+
 
 }
 
