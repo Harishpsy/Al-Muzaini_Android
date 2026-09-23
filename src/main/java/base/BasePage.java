@@ -62,6 +62,17 @@ public abstract class BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
+    // Accepts a PageFactory WebElement directly
+    protected void clickWithWaitElement(WebElement element) {
+        FluentWait<AppiumDriver> wait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(60))
+                .pollingEvery(Duration.ofMillis(500))
+                .ignoring(NoSuchElementException.class)
+                .ignoring(StaleElementReferenceException.class);
+
+        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+    }
+
     protected void scrollWithClick(By locator) {
         try {
             scrollToEnd();

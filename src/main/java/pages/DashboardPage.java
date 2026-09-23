@@ -47,7 +47,7 @@ public class DashboardPage extends BasePage {
     public void handleBiometricPopup()  {
         try {
             if(driver.findElement(BioMetricBottomSheet).isDisplayed()) {
-                Thread.sleep(10000);
+                Thread.sleep(15000);
                 clickWithWait(EnableBiometric);
                 System.out.println("Dashboard: Enable Biometric button clicked successfully");
             }
