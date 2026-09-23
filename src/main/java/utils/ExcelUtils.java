@@ -106,7 +106,13 @@ public class ExcelUtils {
                 return dataList;
             }
 
-            int colCount = headerRow.getLastCellNum();
+            int colCount = 0;
+            for (int c = 0; c < headerRow.getLastCellNum(); c++) {
+                Cell cell = headerRow.getCell(c, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
+                if (cell != null && !DATA_FORMATTER.formatCellValue(cell).trim().isEmpty()) {
+                    colCount = c + 1;
+                }
+            }
 
             for (int r = 1; r <= sheet.getLastRowNum(); r++) {
                 Row row = sheet.getRow(r);
@@ -162,7 +168,13 @@ public class ExcelUtils {
                 return dataList;
             }
 
-            int colCount = headerRow.getLastCellNum();
+            int colCount = 0;
+            for (int c = 0; c < headerRow.getLastCellNum(); c++) {
+                Cell cell = headerRow.getCell(c, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
+                if (cell != null && !DATA_FORMATTER.formatCellValue(cell).trim().isEmpty()) {
+                    colCount = c + 1;
+                }
+            }
             List<String> headers = new ArrayList<>();
             for (int c = 0; c < colCount; c++) {
                 Cell cell = headerRow.getCell(c);

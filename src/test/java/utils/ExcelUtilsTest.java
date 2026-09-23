@@ -129,6 +129,35 @@ public class ExcelUtilsTest {
         Assert.assertTrue(dp.hasNext(), "Knet data provider must yield test records");
     }
 
+    @Test(description = "Verify reading BeneficiaryDetails.xlsx dynamically")
+    public void testReadBeneficiaryDetailsExcel() {
+        List<Object[]> rows = ExcelUtils.getTestData("BeneficiaryDetails.xlsx");
+        Assert.assertFalse(rows.isEmpty(), "BeneficiaryDetails.xlsx must contain at least one data row");
+        for (Object[] row : rows) {
+            Assert.assertEquals(row.length, 7, "BeneficiaryDetails row must have 7 columns");
+            Assert.assertNotNull(row[0], "TestDataID must not be null");
+            Assert.assertNotNull(row[1], "MobileNumber must not be null");
+            Assert.assertFalse(row[1].toString().contains("E+"), "MobileNumber should not be in scientific notation");
+        }
+
+        // Verify DataProvider
+        Iterator<Object[]> dp = DataProviders.getBeneficiaryDetailsData();
+        Assert.assertTrue(dp.hasNext(), "BeneficiaryDetails data provider must yield test records");
+    }
+
+    @Test(description = "Verify reading AddBeneficiary.xlsx dynamically")
+    public void testReadAddBeneficiaryExcel() {
+        List<Object[]> rows = ExcelUtils.getTestData("AddBeneficiary.xlsx");
+        Assert.assertFalse(rows.isEmpty(), "AddBeneficiary.xlsx must contain at least one data row");
+        for (Object[] row : rows) {
+            Assert.assertTrue(row.length >= 15, "AddBeneficiary row must have at least 15 columns");
+        }
+
+        // Verify DataProvider
+        Iterator<Object[]> dp = DataProviders.getAddBeneficiaryData();
+        Assert.assertTrue(dp.hasNext(), "AddBeneficiary data provider must yield test records");
+    }
+
     @Test(description = "Verify reading as Map dynamically")
     public void testReadAsMap() {
         List<Map<String, String>> mapList = ExcelUtils.getTestDataAsMap("Login.xlsx", null);

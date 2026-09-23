@@ -10,12 +10,15 @@ import utils.DataProviders;
 
 public class AddBeneficiaryTest extends BaseTest {
 
-    @Test(dataProvider = "BankTransfer", dataProviderClass = DataProviders.class)
-    public void AddBeneficiaryflow(String YouSend, String TheyReceive, String ReEnterYouSend) throws InterruptedException {
+    @Test(dataProvider = "BeneficiaryDetails", dataProviderClass = DataProviders.class)
+    public void AddBeneficiaryflow(String testDataId, String mobile, String firstName,
+                                   String middleName, String lastName, String address,
+                                   String nationality) throws InterruptedException {
+
         executeAddBeneficiary();
         AddBeneficiaryDropdown();
         ServiceTypeAndProvider();
-        BeneficiaryDetailsPage(YouSend, ReEnterYouSend);
+        BeneficiaryDetailsPage(mobile, firstName, middleName, lastName, address, nationality);
     }
 
     protected void executeAddBeneficiary() throws InterruptedException {
@@ -35,9 +38,9 @@ public class AddBeneficiaryTest extends BaseTest {
         SelectServiceTypeAndProvider.SelectServiceAndProviderCommonActions();
     }
 
-    protected void BeneficiaryDetailsPage(String YouSend, String ReEnterYouSend) throws InterruptedException {
+    protected void BeneficiaryDetailsPage(String mobile, String firstName, String middleName,
+                                          String lastName, String address, String nationality) throws InterruptedException {
         BeneficiaryDetails beneficiaryPage = new BeneficiaryDetails();
-        beneficiaryPage.BeneficiaryDetailsCommonActions(YouSend,ReEnterYouSend);
+        beneficiaryPage.BeneficiaryDetailsCommonActions(mobile, firstName, middleName, lastName, address, nationality);
     }
 }
-

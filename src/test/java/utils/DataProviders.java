@@ -68,13 +68,18 @@ public class DataProviders {
     // ==========================================
     // 8. Add Beneficiary Data Provider
     // ==========================================
-
     @DataProvider(name = "AddBeneficiary")
     public static Iterator<Object[]> getAddBeneficiaryData() {
-        return ExcelUtils.getTestData("BankTransfer.xlsx").iterator();
+        return ExcelUtils.getTestData("AddBeneficiary.xlsx").iterator();
     }
 
-
+    // ==========================================
+    // 9. Beneficiary Details Data Provider
+    // ==========================================
+    @DataProvider(name = "BeneficiaryDetails")
+    public static Iterator<Object[]> getBeneficiaryDetailsData() {
+        return ExcelUtils.getTestData("BeneficiaryDetails.xlsx").iterator();
+    }
 }
 
 

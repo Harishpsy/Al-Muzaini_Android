@@ -2,11 +2,10 @@ package pages.TransferMoney.Beneficiaries.BankTransfer;
 
 import base.BasePage;
 import io.appium.java_client.AppiumBy;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
+import utils.ExcelUtils;
 import java.time.Duration;
+import java.util.List;
 
 public class ReviewPayment extends BasePage {
 
@@ -20,6 +19,15 @@ public class ReviewPayment extends BasePage {
     private final By SENDNOWBUTTON = By.xpath("//android.view.ViewGroup[@content-desc=\"Send Now\"]");
     private final By CONFIRM = By.xpath("//android.widget.TextView[@text=\"Confirm\"]");
 
+
+    public void ReviewPaymentActions() throws InterruptedException {
+        List<Object[]> data = ExcelUtils.getTestData("BankTransfer.xlsx");
+        if (!data.isEmpty()) {
+            ReviewPaymentActions(data.get(0)[2].toString());
+        } else {
+            throw new RuntimeException("No test data found in BankTransfer.xlsx");
+        }
+    }
 
     public void ReviewPaymentActions(String ReEnterYouSend) throws InterruptedException {
 //        ClickingEditIcon();
