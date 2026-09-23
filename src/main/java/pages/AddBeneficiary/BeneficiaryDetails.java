@@ -10,11 +10,6 @@ import pages.TransferMoney.Beneficiaries.BankTransfer.KnetPaymentGateway;
 import pages.TransferMoney.Beneficiaries.BankTransfer.MakeTransfer;
 import pages.TransferMoney.Beneficiaries.BankTransfer.ReviewPayment;
 import pages.TransferMoney.Beneficiaries.BankTransfer.TransaactionSummary;
-import utils.ExcelUtils;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class BeneficiaryDetails extends BasePage {
@@ -49,18 +44,6 @@ public class BeneficiaryDetails extends BasePage {
     private final By ClickingSubmit = new AppiumBy.ByAccessibilityId("Submit");
     // Locator for Clicking Continue Button After successfully adding beneficiary
     private final By ClickingContinue = new AppiumBy.ByAccessibilityId("Continue");
-    // Locator for entering YouSend amount
-    private final By YouSend = new AppiumBy.ByAndroidUIAutomator("new UiSelector().text(\"0.000\").instance(0)");
-    // Locator for Clicking Purpose of Transfer
-    private final By PURPOSEOFTRANSFER = By.xpath("//android.view.ViewGroup[@content-desc=\"Purpose of Transfer*\"]/android.view.ViewGroup/com.horcrux.svg.SvgView/com.horcrux.svg.B/com.horcrux.svg.J");
-    // Locator for selecting Purpose of Transfer
-    private final By PURPOSEOFTRANSFERSEARCH = By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]");
-    // Locator for clicking Send Now Button
-    private final By SENDNOWBUTTON = By.xpath("//android.widget.TextView[@text=\"Send Now\"]");
-    // Locator for clicking Confirm button on KNET page - NOT WORKING AS OF NOW - CLICK MANUALLY
-    private final By ClickingConfirm = By.xpath("//android.widget.TextView[@text=\"Confirm\"]");
-
-    private Map<String, String> cachedBeneficiaryData;
 
     public BeneficiaryDetails() {
         super();
@@ -68,21 +51,22 @@ public class BeneficiaryDetails extends BasePage {
 
     public void BeneficiaryDetailsCommonActions(String mobile, String firstName, String middleName,
                                                 String lastName, String address, String nationality) throws InterruptedException {
-        clickingMobileNo();
-        enterMobileNo(mobile);
-        clickingFirstName();
-        enterFirstName(firstName);
-        clickingMiddleName();
-        enterMiddleName(middleName);
-        clickingLastName();
-        enterLastName(lastName);
-        clickingAddress1();
-        enterAddress1(address);
+        clickingMobileNo(mobile);
+//        enterMobileNo(mobile);
+        clickingFirstName(firstName);
+//        enterFirstName(firstName);
+        clickingMiddleName(middleName);
+//        enterMiddleName(middleName);
+        clickingLastName(lastName);
+//        enterLastName(lastName);
+        clickingAddress1(address);
+        KeyboardOkButton();
+//        enterAddress1(address);
         clickingNationality();
         enterNationality(nationality);
         selectNationalityFromDropdown(nationality);
         clickingSubmitButton();
-        clickingContinueButton();
+        callingBenefciaryAddedPage();
         callingMakeTransferPage();
         CallingReviewPayment();
         CallingPaymentGateway();
@@ -90,8 +74,9 @@ public class BeneficiaryDetails extends BasePage {
     }
 
     // Step 1 Click Mobile Number
-    public void clickingMobileNo() {
+    public void clickingMobileNo(String mobileNumber) {
         clickWithWait(ClickMobileNO);
+        sendKeys(EnterMobileNo,mobileNumber);
         System.out.println("Mobile number clicked");
     }
 
@@ -104,10 +89,10 @@ public class BeneficiaryDetails extends BasePage {
         KeyboardOkButton();
     }
 
-
     // Step 3 Click First Name
-    public void clickingFirstName() {
+    public void clickingFirstName(String firstNameText) {
         clickWithWait(ClickingFirstName);
+        sendKeys(EnterFirstName,firstNameText);
         System.out.println("First Name clicked");
     }
 
@@ -120,11 +105,11 @@ public class BeneficiaryDetails extends BasePage {
         KeyboardOkButton();
     }
 
-
     // Step 5 Click Middle Name
-    public void clickingMiddleName() {
+    public void clickingMiddleName(String middleNameText) {
         clickWithWait(ClickingMiddleName);
         System.out.println("Middle name clicked");
+        sendKeys(EnterMiddleName,middleNameText);
     }
 
     // Step 6 Enter Middle Name
@@ -138,8 +123,9 @@ public class BeneficiaryDetails extends BasePage {
 
 
     // Step 7 Click Last Name
-    public void clickingLastName() {
+    public void clickingLastName(String lastNameText) {
         clickWithWait(ClickingLastName);
+        sendKeys(EnterLastName,lastNameText);
         System.out.println("Last name clicked");
     }
 
@@ -154,8 +140,9 @@ public class BeneficiaryDetails extends BasePage {
 
 
     // Step 9 Click Beneficiary Address1
-    public void clickingAddress1() {
+    public void clickingAddress1(String addressText) {
         clickWithWait(ClickingBeneficiaryAddress1);
+        sendKeys(EnterBeneficiaryAddress1, addressText);
         System.out.println("Beneficiary Address1 is clicked");
     }
 
@@ -167,8 +154,6 @@ public class BeneficiaryDetails extends BasePage {
         System.out.println("Beneficiary Address1 is entered: " + addressText);
         KeyboardOkButton();
     }
-
-
 
     // Step 11 Click Nationality
     public void clickingNationality() {
@@ -183,8 +168,6 @@ public class BeneficiaryDetails extends BasePage {
         nationality.sendKeys(nationalityText);
         System.out.println("Nationality is entered: " + nationalityText);
     }
-
-
 
     // Step 13 Select Nationality from the dropdown
     public void selectNationalityFromDropdown(String nationalityText) throws InterruptedException {
@@ -208,30 +191,28 @@ public class BeneficiaryDetails extends BasePage {
     }
 
     // Step 15 Clicking the Continue button
-    protected void clickingContinueButton() throws InterruptedException {
-        Thread.sleep(10000);
-        clickWithWait(ClickingContinue);
-        System.out.println("Continue button is clicked");
-    }
+      protected void callingBenefciaryAddedPage() throws InterruptedException {
+        new BeneficiaryAddedPage().BeneficiaryAddedCommonActions();
+      }
 
-    // Calling the Make transfer page
+    // Step 16 Calling the Make transfer page
     protected void callingMakeTransferPage() throws InterruptedException {
         new MakeTransfer().MakeTransferCommonActions();
     }
 
-    // Calling the review payment screen
+    // Step 17 Calling the review payment screen
     private void CallingReviewPayment() throws InterruptedException {
         new ReviewPayment().ReviewPaymentActions();
         System.out.println("Successfully clicked the Review Payment Actions");
     }
 
-    // Calling The Knet Page Here To Do Transaction
+    // Step 18 Calling The Knet Page Here To Do Transaction
     private void CallingPaymentGateway() throws InterruptedException {
         KnetPaymentGateway PaymentGateway = new KnetPaymentGateway();
         PaymentGateway.KnetActions();
     }
 
-    // Transaction Summary
+    // Step 19 Transaction Summary
     private void CallingTransactionSummary() throws InterruptedException {
         TransaactionSummary transaactionSummary = new TransaactionSummary();
         transaactionSummary.TranstionSummaryActions();
