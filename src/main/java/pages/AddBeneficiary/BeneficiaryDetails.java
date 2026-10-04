@@ -25,21 +25,16 @@ public class BeneficiaryDetails extends BasePage {
     public void BeneficiaryDetailsCommonActions(String mobile, String firstName, String middleName,
                                                 String lastName, String address, String nationality) throws InterruptedException {
         clickingMobileNo(mobile);
-//        enterMobileNo(mobile);
         clickingFirstName(firstName);
-//        enterFirstName(firstName);
         clickingMiddleName(middleName);
-//        enterMiddleName(middleName);
         clickingLastName(lastName);
-//        enterLastName(lastName);
         clickingAddress1(address);
         KeyboardOkButton();
-//        enterAddress1(address);
         clickingNationality();
         enterNationality(nationality);
         selectNationalityFromDropdown(nationality);
         clickingSubmitButton();
-        callingBenefciaryAddedPage();
+        callingBeneficiaryAddedPage();
         callingMakeTransferPage();
         CallingReviewPayment();
         CallingPaymentGateway();
@@ -99,7 +94,7 @@ public class BeneficiaryDetails extends BasePage {
     public void clickingLastName(String lastNameText) {
         clickWithWaitElement(locators.ClickingLastName);
         locators.EnterLastName.sendKeys(lastNameText);
-        System.out.println("Last name clicked");
+        System.out.println("Last name is entered: " + lastNameText);
     }
 
     // Step 8 Enter Last Name
@@ -116,7 +111,7 @@ public class BeneficiaryDetails extends BasePage {
     public void clickingAddress1(String addressText) {
         clickWithWaitElement(locators.ClickingBeneficiaryAddress1);
         locators.EnterBeneficiaryAddress1.sendKeys(addressText);
-        System.out.println("Beneficiary Address1 is clicked");
+        System.out.println("Beneficiary Address1 is entered: " + addressText);
     }
 
     // Step 10 Enter Beneficiary Address1
@@ -162,7 +157,7 @@ public class BeneficiaryDetails extends BasePage {
     }
 
     // Step 15 Clicking the Continue button
-      protected void callingBenefciaryAddedPage() throws InterruptedException {
+      protected void callingBeneficiaryAddedPage() throws InterruptedException {
         new BeneficiaryAddedPage().BeneficiaryAddedCommonActions();
       }
 

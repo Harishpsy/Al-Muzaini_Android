@@ -225,5 +225,15 @@ public abstract class BasePage {
         }
     }
 
+    /* ===================== SCREENSHOT ===================== */
+
+    public String takeScreenshot(String folderName, String fileName) {
+        return utils.ScreenshotUtils.captureScreenshot(folderName, fileName);
+    }
+
+    public String takeScreenshot(String folderName) {
+        return utils.ScreenshotUtils.captureScreenshot(folderName);
+    }
 
 }
+

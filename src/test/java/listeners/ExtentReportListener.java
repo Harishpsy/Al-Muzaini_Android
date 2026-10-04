@@ -45,7 +45,14 @@ public class ExtentReportListener implements ITestListener {
     public void onTestFailure(ITestResult result) {
         test.get().log(Status.FAIL, "Test Failed");
         test.get().fail(result.getThrowable());
-        // ToDO: Attach screenshot here using ScreenshotUtils
+        try {
+            String base64Screenshot = utils.ScreenshotUtils.getBase64Screenshot();
+            if (base64Screenshot != null && !base64Screenshot.isEmpty()) {
+                test.get().addScreenCaptureFromBase64String(base64Screenshot, result.getMethod().getMethodName());
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to attach failure screenshot to report: " + e.getMessage());
+        }
     }
 
     @Override
